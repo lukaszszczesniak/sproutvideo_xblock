@@ -1,0 +1,15 @@
+setup.py
+sproutvideo/__init__.py
+sproutvideo/sproutvideo.py
+sproutvideo/static/README.txt
+sproutvideo/static/css/sproutvideo.css
+sproutvideo/static/html/sproutvideo.html
+sproutvideo/static/html/sproutvideo_edit.html
+sproutvideo/static/js/src/sproutvideo.js
+sproutvideo/static/js/src/sproutvideo_edit.js
+sproutvideo_xblock.egg-info/PKG-INFO
+sproutvideo_xblock.egg-info/SOURCES.txt
+sproutvideo_xblock.egg-info/dependency_links.txt
+sproutvideo_xblock.egg-info/entry_points.txt
+sproutvideo_xblock.egg-info/requires.txt
+sproutvideo_xblock.egg-info/top_level.txt

@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: sproutvideo-xblock
+Version: 0.2
+Summary: sproutvideo XBlock
+License: UNKNOWN
+Requires-Dist: XBlock
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: summary
