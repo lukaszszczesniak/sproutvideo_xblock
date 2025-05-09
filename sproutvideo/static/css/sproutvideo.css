@@ -1,3 +1,33 @@
 .sproutvideo-embed-container {
     max-width: 100%;
 }
+
+.sproutvideo-edit-block {
+    padding: 20px;
+}
+
+.save-button {
+    background-color: #17B698;
+    border-radius: 5px;
+    border-width: 0;
+    color: #FFFFFF;
+    font-weight: 700;
+    padding: 1rem 2.25rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+    align-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    outline-width: 0 !important;
+    align-items: center;
+    border-style: none;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.save-button:hover {
+    background-color: #35525D;
+    border-color: transparent;
+    color: #FFFFFF;
+}
