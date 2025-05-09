@@ -89,3 +89,11 @@ class SproutVideoXBlock(XBlock):
         self.video_url = url
         log.info('video url saved: %s', self.video_url)
         return {'result': 'success', 'url': url}
+
+    @staticmethod
+    def block_metadata(cls):
+        return {
+            "display_name": "SproutVideo",
+            "icon_class": "video",
+            "category": "Advanced"
+        }
