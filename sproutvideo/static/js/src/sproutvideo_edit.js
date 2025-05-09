@@ -9,7 +9,7 @@ function SproutVideoEditXBlock(runtime, element) {
             }
 
             function updatePreviewUrl(url) {
-                $('#sproutvideo-preview', element).src(url);
+                $('#sproutvideo-preview', element).attr("src", url);
                 console.log("Zaktualizowano podląd na url: ", url);
             }
 
