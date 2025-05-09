@@ -1,6 +1,4 @@
 function SproutVideoEditXBlock(runtime, element) {
-    return {
-        init: function() {
 
             function initiallyValid(url) {
                 const check = url.startsWith('https://videos.sproutvideo.com/embed/');
@@ -51,7 +49,5 @@ function SproutVideoEditXBlock(runtime, element) {
                     error: saveFailed,
                 });
             });
-        }
-    };
 }
 
