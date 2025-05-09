@@ -1,11 +1,13 @@
 """TO-DO: Write a description of what this XBlock is."""
 
 from importlib.resources import files
+import logging
 
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.fields import Integer, Scope, String
 
+log = logging.getLogger(__name__)
 
 class SproutVideoXBlock(XBlock):
     """
@@ -80,8 +82,10 @@ class SproutVideoXBlock(XBlock):
         """
         Handler to save the video URL from Studio.
         """
-        url = data.get('video_url', '').strip()
+        url = data['video_url'].strip()
         if not url.startswith('https://videos.sproutvideo.com/embed/'):
-            return {"result": "error", "message": "Invalid SproutVideo embed URL."}
+            log.error('invalid url given: %s', url)
+            return {'result': 'error', 'message': 'Invalid SproutVideo embed URL.'}
         self.video_url = url
-        return {"result": "success"}
+        log.info('video url saved: %s', self.video_url)
+        return {'result': 'success', 'url': url}

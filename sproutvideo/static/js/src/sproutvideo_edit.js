@@ -1,38 +1,57 @@
 function SproutVideoEditXBlock(runtime, element) {
     return {
         init: function() {
-            const input = element.querySelector('#sproutvideo-url-input');
-            const iframe = element.querySelector('#sproutvideo-preview');
-            const saveButton = element.querySelector('.save-button');
 
-            // Aktualizacja iframe
-            input.addEventListener('input', () => {
-                const url = input.value.trim();
-                iframe.src = url;
+            function initiallyValid(url) {
+                const check = url.startsWith('https://videos.sproutvideo.com/embed/');
+                if (!check) {
+                    console.warn("Wstępne sprawdzenie nie powiodło się, url: ", url);
+                }
+                return check;
+            }
+
+            function updatePreviewUrl(url) {
+                $('#sproutvideo-preview', element).src(url);
+                console.log("Zaktualizowano podląd na url: ", url);
+            }
+
+            function saveSucceed(response) {
+                console.log("Zapis udany! ", response.url);
+                updatePreviewUrl(response.url);
+            }
+
+            function saveFailed(jqXHR, textStatus, errorThrown) {
+                console.error("Błąd zapisu:", textStatus);
+            }
+
+            $('#sproutvideo-url-input', element).change(function () {
+                const url = $(this).val()
+                if (initiallyValid(url)) {
+                    updatePreviewUrl(url);
+                }
             });
 
-            saveButton.addEventListener('click', function () {
-                const url = input.value.trim();
+            $('.save-button', element).click(function () {
+                const url = $('#sproutvideo-url-input', element).val();
 
-                if (!url.startsWith('https://videos.sproutvideo.com/embed/')) {
+                if (!initiallyValid(url)) {
                     runtime.notify('error', {
                         msg: 'Niepoprawny adres URL. Wprowadź pełny embed URL ze SproutVideo.'
                     });
                     return;
                 }
 
-                runtime.notify('save', { state: 'start' });
+                const handlerUrl = runtime.handlerUrl(element, 'save_video_url');
 
-                runtime.xblockHandler(element, 'save_video_url', {
-                    method: 'POST',
-                    data: JSON.stringify({ video_url: url })
-                }).then(function () {
-                    runtime.notify('save', { state: 'end' });
-                }).catch(function (error) {
-                    console.error("Błąd zapisu:", error);
-                    runtime.notify('error', { msg: 'Zapis nie powiódł się.' });
+                $.ajax({
+                    type: "POST",
+                    url: handlerUrl,
+                    data: JSON.stringify({video_url: url}),
+                    success: saveSucceed,
+                    error: saveFailed,
                 });
             });
         }
     };
 }
+
