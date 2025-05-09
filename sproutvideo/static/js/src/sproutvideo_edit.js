@@ -16,10 +16,12 @@ function SproutVideoEditXBlock(runtime, element) {
             function saveSucceed(response) {
                 console.log("Zapis udany! ", response.url);
                 updatePreviewUrl(response.url);
+                runtime.notify('save', { state: 'end' });
             }
 
             function saveFailed(jqXHR, textStatus, errorThrown) {
                 console.error("Błąd zapisu:", textStatus);
+                runtime.notify('error', { msg: 'Zapis nie powiódł się.' });
             }
 
             $('#sproutvideo-url-input', element).change(function () {
@@ -41,12 +43,13 @@ function SproutVideoEditXBlock(runtime, element) {
 
                 const handlerUrl = runtime.handlerUrl(element, 'save_video_url');
 
+                runtime.notify('save', { state: 'start' });
                 $.ajax({
                     type: "POST",
                     url: handlerUrl,
                     data: JSON.stringify({video_url: url}),
                     success: saveSucceed,
-                    error: saveFailed,
+                    error: saveFailed
                 });
             });
 }
